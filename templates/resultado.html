@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultado de la Predicción</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ff7eb3, #ff758c, #fd7386, #fcb17b);
+            color: #fff;
+            animation: gradient-animation 10s ease infinite;
+            background-size: 300% 300%;
+        }
+
+        @keyframes gradient-animation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 20px auto;
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            max-width: 90%;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            font-size: 1.5em;
+            margin: 30px auto;
+            width: 200px;
+            padding: 10px 20px;
+            background: #fff;
+            color: #ff758c;
+            text-decoration: none;
+            border-radius: 30px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        a:hover {
+            background: #ffe5ec;
+            transform: scale(1.1);
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        footer p {
+            font-size: 0.9em;
+            margin: 0;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Resultado de la Predicción</h1>
+    <p>La predicción es: {{ prediccion }}</p>
+    <h2 style="text-align: center; margin: 20px;">Gráfica generada</h2>
+    <img src="data:image/png;base64,{{ grafica }}" alt="Gráfica generada con Matplotlib">
+
+    <a href="/">Realizar otra predicción</a>
+
+    <footer>
+        <p>&copy; 2025 Resultado de la Predicción | Diseño fancy</p>
+    </footer>
+  </body>
+</html>
