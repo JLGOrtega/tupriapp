@@ -7,11 +7,16 @@ import json
 import io
 import base64
 import matplotlib.pyplot as plt
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 app = Flask(__name__)
 
 
-churro = "postgresql://postgres:postgres@35.233.106.171:5432/postgres"
+churro = os.environ["CHURRO"]
 engine = create_engine(churro)
 
 def get_ts():
