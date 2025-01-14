@@ -9,20 +9,17 @@ import base64
 import matplotlib.pyplot as plt
 import os
 from dotenv import load_dotenv
+import google.generativeai as genai
+from utils import get_prompt, get_ts, generar_texto
 
 load_dotenv()
 
 
 app = Flask(__name__)
 
-
 churro = os.environ["CHURRO"]
 engine = create_engine(churro)
 
-def get_ts():
-    
-    timestamp = datetime.datetime.now().isoformat()
-    return timestamp[0:19]
 
 @app.route('/', methods=["GET"])
 def formulario():
@@ -34,10 +31,6 @@ def predict():
     pclass = int(request.form.get("pclass"))
     sex = int(request.form.get("sex"))
     age = int(request.form.get("age"))
-    # Obtener los datos del formulario
-    # caracteristicas = [float(x) for x in request.form.values()]
-    # print(caracteristicas)
-    # entrada = [caracteristicas]
 
     inputs = [pclass, sex, age]
 
@@ -70,7 +63,18 @@ def predict():
     img_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
 
 
-    return render_template('resultado.html', prediccion=outputs, grafica=img_base64)
+    # GENERAR TEXTO IA
+    
+    genai.configure(api_key=os.environ["GOOGLE_API_KEY"])  # Reemplaza con tu clave real
+    # Define el modelo a usar
+    model = genai.GenerativeModel('gemini-2.0-flash-exp')
+    prompt = get_prompt(inputs, outputs)
+    generacion = generar_texto(model, prompt, temperature=0.7, top_p=1.0, top_k=40, max_output_tokens=512)
+
+    return render_template('resultado.html', 
+                           prediccion=outputs, 
+                           grafica=img_base64, 
+                           texto_ia=generacion)
 
 @app.route("/results", methods=["GET"])
 def results():
